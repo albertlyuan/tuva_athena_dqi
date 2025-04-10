@@ -191,12 +191,12 @@ models:
                 severity: warn
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_expectations.expect_column_values_to_be_between:
-# description: This is a test on all dates to see if they are within a reasonable range. 
+# description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions',
                 'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_financial_pmpm', 'dqi_quality_measures',
                 'dqi_readmission']
-              min_value: "'1900-01-02'"
-              max_value: "'2050-01-02'"
+              min_value: "cast('1900-01-02' as date)"
+              max_value: "cast('2050-01-02' as date)"
               strictly: false
               config:
                 severity: warn
@@ -252,12 +252,12 @@ models:
                 severity: warn
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_expectations.expect_column_values_to_be_between:
-# description: This is a test on all dates to see if they are within a reasonable range. 
+# description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions',
                 'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_financial_pmpm', 'dqi_quality_measures',
                 'dqi_readmission']
-              min_value: "'1900-01-02'"
-              max_value: "'2050-01-02'"
+              min_value: "cast('1900-01-02' as date)"
+              max_value: "cast('2050-01-02' as date)"
               strictly: false
               config:
                 severity: warn
@@ -282,10 +282,10 @@ models:
                 severity: warn
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_expectations.expect_column_values_to_be_between:
-# description: This is a test on all dates to see if they are within a reasonable range. 
+# description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_1', 'dqi', 'dqi_financial_pmpm']
-              min_value: "'1900-01-02'"
-              max_value: "'2050-01-02'"
+              min_value: "cast('1900-01-02' as date)"
+              max_value: "cast('2050-01-02' as date)"
               strictly: false
               config:
                 severity: warn
@@ -322,10 +322,10 @@ models:
                 severity: warn
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_expectations.expect_column_values_to_be_between:
-# description: This is a test on all dates to see if they are within a reasonable range. 
+# description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_tuva_chronic_conditions']
-              min_value: "'1900-01-02'"
-              max_value: "'2050-01-02'"
+              min_value: "cast('1900-01-02' as date)"
+              max_value: "cast('2050-01-02' as date)"
               strictly: false
               config:
                 severity: warn
@@ -348,10 +348,10 @@ models:
                 severity: warn
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_expectations.expect_column_values_to_be_between:
-# description: This is a test on all dates to see if they are within a reasonable range. 
+# description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_tuva_chronic_conditions']
-              min_value: "'1900-01-02'"
-              max_value: "'2050-01-02'"
+              min_value: "cast('1900-01-02' as date)"
+              max_value: "cast('2050-01-02' as date)"
               strictly: false
               config:
                 severity: warn
@@ -421,7 +421,7 @@ models:
         description: '{{ doc("place_of_service_code") }}'
         tests:
           - not_null:
-# description: If a claim is professional, it should have a place of service code via CMS-1500. 
+# description: If a claim is professional, it should have a place of service code via CMS-1500.
               tags: ['tuva_dqi_sev_4', 'dqi', 'dqi_quality_measures']
               config:
                 severity: warn
@@ -524,7 +524,7 @@ models:
         description: '{{ doc("revenue_center_code") }}'
         tests:
           - not_null:
-# description: Missing revenue codes for institutional claims. Severity 5 as triggers if at least on revenue code is missing. 
+# description: Missing revenue codes for institutional claims. Severity 5 as triggers if at least on revenue code is missing.
               tags: ['tuva_dqi_sev_5', 'dqi', 'dqi_quality_measures']
               config:
                 severity: warn
