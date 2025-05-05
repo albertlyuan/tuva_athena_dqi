@@ -106,8 +106,8 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
 # description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_hccs']
-              min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
-              max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
+              min_value: "'1900-01-02'"
+              max_value: "'2050-01-02'"
               strictly: false
               config:
                 severity: warn
@@ -149,8 +149,8 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
 # description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_hccs']
-              min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
-              max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
+              min_value: "'1900-01-02'"
+              max_value: "'2050-01-02'"
               strictly: false
               config:
                 severity: warn
@@ -207,8 +207,8 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
 # description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_hccs', 'dqi_financial_pmpm']
-              min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
-              max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
+              min_value: "'1900-01-02'"
+              max_value: "'2050-01-02'"
               strictly: false
               config:
                 severity: warn
@@ -233,8 +233,8 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
 # description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_hccs', 'dqi_financial_pmpm']
-              min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
-              max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
+              min_value: "'1900-01-02'"
+              max_value: "'2050-01-02'"
               strictly: false
               config:
                 severity: warn
