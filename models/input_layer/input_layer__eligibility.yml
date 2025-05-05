@@ -199,8 +199,7 @@ models:
               config:
                 severity: warn
                 enabled: "{{ target.type == 'athena' }}"
-              quote: false
-              column_name: "CAST(death_flag AS varchar)"
+              column_name: "CAST(death_flag AS VARCHAR)"
       - name: enrollment_start_date
         description: '{{ doc("enrollment_start_date") }}'
         tests:
