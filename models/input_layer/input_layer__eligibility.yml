@@ -183,7 +183,7 @@ models:
               tags: [ 'tuva_dqi_sev_2', 'dqi' ]
               config:
                 severity: warn
-                enabled: "{{ target.type != 'bigquery' }}"
+                enabled: "{{ target.type not in ('bigquery','athena') }}"
           # BigQuery specific test with proper casting
           - accepted_values:
               values: [ '0', '1' ]
@@ -199,6 +199,7 @@ models:
               config:
                 severity: warn
                 enabled: "{{ target.type == 'athena' }}"
+              quote: false
               column_name: "CAST(death_flag AS VARCHAR)"
       - name: enrollment_start_date
         description: '{{ doc("enrollment_start_date") }}'
