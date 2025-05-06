@@ -109,7 +109,7 @@ models:
               min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
               max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
               strictly: false
-              column_name: "CAST(birth_date AS DATE)"
+              column_name: "TRY(CAST(birth_date AS DATE))"
               config:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
@@ -165,7 +165,7 @@ models:
               min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
               max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
               strictly: false
-              column_name: "CAST(death_date AS DATE)"
+              column_name: "TRY(CAST(death_date AS DATE))"
               config:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
@@ -218,7 +218,7 @@ models:
                 severity: warn
                 enabled: "{{ target.type == 'bigquery' }}"
               quote: false
-              column_name: "CAST(death_flag AS STRING)"
+              column_name: "TRY(CAST(death_flag AS STRING))"
           - accepted_values:
               values: [ '0', '1' ]
               tags: [ 'tuva_dqi_sev_2', 'dqi' ]
@@ -226,7 +226,7 @@ models:
                 severity: warn
                 enabled: "{{ target.type == 'athena' }}"
               quote: false
-              column_name: "CAST(death_flag AS VARCHAR)"
+              column_name: "TRY(CAST(death_flag AS VARCHAR))"
       - name: enrollment_start_date
         description: '{{ doc("enrollment_start_date") }}'
         tests:
@@ -236,7 +236,7 @@ models:
               min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
               max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
               strictly: false
-              column_name: "CAST(enrollment_start_date AS DATE)"
+              column_name: "TRY(CAST(enrollment_start_date AS DATE))"
               config:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
@@ -275,7 +275,7 @@ models:
               min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
               max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
               strictly: false
-              column_name: "CAST(enrollment_end_date AS DATE)"
+              column_name: "TRY(CAST(enrollment_end_date AS DATE))"
               config:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
