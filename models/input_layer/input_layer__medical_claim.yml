@@ -464,8 +464,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_utils.expression_is_true:
 # description: https://resdac.org/cms-data/variables/claim-inpatient-admission-type-code-ffs
-              name: expect_column_values_to_match_regex
-              expression: "regexp_like(admit_type_code, '^[0-59]$')"
+              name: expect_column_values_to_match_regex_input_layer__medical_claim_admit_type_code
+              expression: "{{ regexp_like(admit_type_code, '^[0-59]$') }}"
               tags: ['tuva_dqi_sev_2', 'dqi']
               config:
                 severity: warn
@@ -522,8 +522,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_utils.expression_is_true:
 # description: https://resdac.org/cms-data/variables/claim-inpatient-admission-type-code-ffs
-              name: expect_column_values_to_match_regex
-              expression: "regexp_like(place_of_service_code, '^[0-9]{2}$')"
+              name: expect_column_values_to_match_regex_input_layer__medical_claim_place_of_service_code
+              expression: "{{ regexp_like(place_of_service_code, '^[0-9]{2}$') }}"
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_quality_measures']
               config:
                 severity: warn
@@ -569,8 +569,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_utils.expression_is_true:
 # description: 3 digits, 2 numbers followed by letter. If 4, leading 0.
-              name: expect_column_values_to_match_regex
-              expression: "regexp_like(bill_type_code, '^([0-9]{2}[0-9A-Za-z]|0[0-9]{2}[0-9A-Za-z])$')"
+              name: expect_column_values_to_match_regex_input_layer__medical_claim_bill_type_code
+              expression: "{{ regexp_like(bill_type_code, '^([0-9]{2}[0-9A-Za-z]|0[0-9]{2}[0-9A-Za-z])$') }}"
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_cms_chronic_conditions']
               config:
                 severity: warn
@@ -660,8 +660,8 @@ models:
                 severity: warn
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_utils.expression_is_true:
-              name: expect_column_values_to_match_regex
-              expression: "regexp_like(bill_type_code, '^(\\\\d{3}|0\\\\d{3})$')"
+              name: expect_column_values_to_match_regex_input_layer__medical_claim_revenue_center_code
+              expression: "{{ regexp_like(revenue_center_code, '^(\\\\d{3}|0\\\\d{3})$') }}"
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_financial_pmpm']
               config:
                 severity: warn
@@ -757,8 +757,8 @@ models:
                 severity: warn
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_utils.expression_is_true:
-              name: expect_column_values_to_match_regex
-              expression: "regexp_like(rendering_npi, '^[0-9]{10}')"
+              name: expect_column_values_to_match_regex_input_layer__medical_claim_rendering_npi
+              expression: "{{ regexp_like(rendering_npi, '^[0-9]{10}') }}"
               config:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
@@ -792,8 +792,8 @@ models:
                 severity: warn
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_utils.expression_is_true:
-              name: expect_column_values_to_match_regex
-              expression: "regexp_like(billing_npi, '^[0-9]{10}')"
+              name: expect_column_values_to_match_regex_input_layer__medical_claim_billing_npi
+              expression: "{{ regexp_like(billing_npi, '^[0-9]{10}') }}"
               config:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
@@ -827,8 +827,8 @@ models:
                 severity: warn
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_utils.expression_is_true:
-              name: expect_column_values_to_match_regex
-              expression: "regexp_like(facility_npi, '^[0-9]{10}')"
+              name: expect_column_values_to_match_regex_input_layer__medical_claim_facility_npi
+              expression: "{{ regexp_like(facility_npi, '^[0-9]{10}') }}"
               config:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
