@@ -584,7 +584,7 @@ models:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_cms_chronic_conditions']
               config:
                 severity: warn
-                enabled: "{{ ((target.type not in ('fabric', 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
+                enabled: "{{ ((target.type not in ('fabric', 'athena')) and var('enable_input_layer_testing', true)) | as_bool }}"
                 meta:
                   dqi_test_description: "3 digits, 2 numbers followed by letter. If
                     4, leading 0."
