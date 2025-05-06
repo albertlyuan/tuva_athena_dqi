@@ -468,7 +468,17 @@ models:
               tags: ['tuva_dqi_sev_2', 'dqi']
               config:
                 severity: warn
-                enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
+                enabled: "{{ ((target.type not in ('fabric', 'athena')) and var('enable_input_layer_testing', true)) | as_bool }}"
+                meta:
+                  dqi_test_description: "https://resdac.org/cms-data/variables/claim-inpatient-admission-type-code-ffs"
+          - dbt_utils.expression_is_true:
+# description: https://resdac.org/cms-data/variables/claim-inpatient-admission-type-code-ffs
+              name: expect_column_values_to_match_regex
+              expression: "regexp_like(admit_type_code, '^[0-59]$')"
+              tags: ['tuva_dqi_sev_2', 'dqi']
+              config:
+                severity: warn
+                enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
                 meta:
                   dqi_test_description: "https://resdac.org/cms-data/variables/claim-inpatient-admission-type-code-ffs"
       - name: discharge_disposition_code
