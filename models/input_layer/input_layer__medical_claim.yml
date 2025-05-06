@@ -758,7 +758,7 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_utils.expression_is_true:
               name: expect_column_values_to_match_regex
-              expression: "regexp_like(bill_type_code, '^[0-9]{10}')"
+              expression: "regexp_like(rendering_npi, '^[0-9]{10}')"
               config:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
@@ -793,7 +793,7 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_utils.expression_is_true:
               name: expect_column_values_to_match_regex
-              expression: "regexp_like(bill_type_code, '^[0-9]{10}')"
+              expression: "regexp_like(billing_npi, '^[0-9]{10}')"
               config:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
@@ -828,7 +828,7 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_utils.expression_is_true:
               name: expect_column_values_to_match_regex
-              expression: "regexp_like(bill_type_code, '^[0-9]{10}')"
+              expression: "regexp_like(facility_npi, '^[0-9]{10}')"
               config:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
