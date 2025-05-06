@@ -1,5 +1,3 @@
--- tests/expect_column_values_to_match_regex_list_regexp_like.sql
-
 {% set column_name = kwargs.get('column') %}
 {% set regex_list = kwargs.get('regex_list') %}
 {% set row_condition = kwargs.get('row_condition', 'true') %}
