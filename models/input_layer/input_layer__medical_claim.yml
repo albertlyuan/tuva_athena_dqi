@@ -195,12 +195,27 @@ models:
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions',
                 'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_financial_pmpm', 'dqi_quality_measures',
                 'dqi_readmission']
+              min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
+              max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
+              strictly: false
+              column_name: "CAST(claim_start_date AS DATE)"
+              config:
+                severity: warn
+                enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
+                meta:
+                  dqi_test_description: "This is a test on all dates to see if they
+                    are within a reasonable range. "
+          - dbt_expectations.expect_column_values_to_be_between:
+# description: This is a test on all dates to see if they are within a reasonable range.
+              tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions',
+                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_financial_pmpm', 'dqi_quality_measures',
+                'dqi_readmission']
               min_value: "'1900-01-02'"
               max_value: "'2050-01-02'"
               strictly: false
               config:
                 severity: warn
-                enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
+                enabled: "{{ ((target.type not in ('fabric', 'athena')) and var('enable_input_layer_testing', true)) | as_bool }}"
                 meta:
                   dqi_test_description: "This is a test on all dates to see if they
                     are within a reasonable range. "
@@ -256,12 +271,27 @@ models:
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions',
                 'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_financial_pmpm', 'dqi_quality_measures',
                 'dqi_readmission']
+              min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
+              max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
+              strictly: false
+              column_name: "CAST(claim_end_date AS DATE)"
+              config:
+                severity: warn
+                enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
+                meta:
+                  dqi_test_description: "This is a test on all dates to see if they
+                    are within a reasonable range. "
+          - dbt_expectations.expect_column_values_to_be_between:
+# description: This is a test on all dates to see if they are within a reasonable range.
+              tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions',
+                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_financial_pmpm', 'dqi_quality_measures',
+                'dqi_readmission']
               min_value: "'1900-01-02'"
               max_value: "'2050-01-02'"
               strictly: false
               config:
                 severity: warn
-                enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
+                enabled: "{{ ((target.type not in ('fabric', 'athena')) and var('enable_input_layer_testing', true)) | as_bool }}"
                 meta:
                   dqi_test_description: "This is a test on all dates to see if they
                     are within a reasonable range. "
@@ -284,12 +314,25 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
 # description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_1', 'dqi', 'dqi_financial_pmpm']
+              min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
+              max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
+              strictly: false
+              column_name: "CAST(claim_line_start_date AS DATE)"
+              config:
+                severity: warn
+                enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
+                meta:
+                  dqi_test_description: "This is a test on all dates to see if they
+                    are within a reasonable range. "
+          - dbt_expectations.expect_column_values_to_be_between:
+# description: This is a test on all dates to see if they are within a reasonable range.
+              tags: ['tuva_dqi_sev_1', 'dqi', 'dqi_financial_pmpm']
               min_value: "'1900-01-02'"
               max_value: "'2050-01-02'"
               strictly: false
               config:
                 severity: warn
-                enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
+                enabled: "{{ ((target.type not in ('fabric', 'athena')) and var('enable_input_layer_testing', true)) | as_bool }}"
                 meta:
                   dqi_test_description: "This is a test on all dates to see if they
                     are within a reasonable range. "
@@ -324,12 +367,25 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
 # description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_tuva_chronic_conditions']
+              min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
+              max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
+              strictly: false
+              column_name: "CAST(admission_date AS DATE)"
+              config:
+                severity: warn
+                enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
+                meta:
+                  dqi_test_description: "This is a test on all dates to see if they
+                    are within a reasonable range. "
+          - dbt_expectations.expect_column_values_to_be_between:
+# description: This is a test on all dates to see if they are within a reasonable range.
+              tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_tuva_chronic_conditions']
               min_value: "'1900-01-02'"
               max_value: "'2050-01-02'"
               strictly: false
               config:
                 severity: warn
-                enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
+                enabled: "{{ ((target.type not in ('fabric', 'athena')) and var('enable_input_layer_testing', true)) | as_bool }}"
                 meta:
                   dqi_test_description: "This is a test on all dates to see if they
                     are within a reasonable range. "
@@ -350,12 +406,25 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
 # description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_tuva_chronic_conditions']
+              min_value: "{{ dbt.cast('1900-01-01', api.Column.translate_type('date')) }}"
+              max_value: "{{ dbt.cast('2050-01-02', api.Column.translate_type('date')) }}"
+              strictly: false
+              column_name: "CAST(discharge_date AS DATE)"
+              config:
+                severity: warn
+                enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
+                meta:
+                  dqi_test_description: "This is a test on all dates to see if they
+                    are within a reasonable range. "
+          - dbt_expectations.expect_column_values_to_be_between:
+# description: This is a test on all dates to see if they are within a reasonable range.
+              tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_tuva_chronic_conditions']
               min_value: "'1900-01-02'"
               max_value: "'2050-01-02'"
               strictly: false
               config:
                 severity: warn
-                enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
+                enabled: "{{ ((target.type not in ('fabric', 'athena')) and var('enable_input_layer_testing', true)) | as_bool }}"
                 meta:
                   dqi_test_description: "This is a test on all dates to see if they
                     are within a reasonable range. "
