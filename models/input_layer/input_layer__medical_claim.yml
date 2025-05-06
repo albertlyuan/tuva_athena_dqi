@@ -195,8 +195,8 @@ models:
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions',
                 'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_financial_pmpm', 'dqi_quality_measures',
                 'dqi_readmission']
-              min_value: "{{ dbt.date(1900, 1, 1) }}"
-              max_value: "{{ dbt.date(2050, 1, 2) }}"
+              min_value: "cast('1900-01-01' as date)"
+              max_value: "cast('2050-01-02' as date)"
               strictly: false
               column_name: "TRY(CAST(claim_start_date AS DATE))"
               config:
@@ -271,8 +271,8 @@ models:
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions',
                 'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_financial_pmpm', 'dqi_quality_measures',
                 'dqi_readmission']
-              min_value: "{{ dbt.date(1900, 1, 1) }}"
-              max_value: "{{ dbt.date(2050, 1, 2) }}"
+              min_value: "cast('1900-01-01' as date)"
+              max_value: "cast('2050-01-02' as date)"
               strictly: false
               column_name: "TRY(CAST(claim_end_date AS DATE))"
               config:
@@ -314,8 +314,8 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
 # description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_1', 'dqi', 'dqi_financial_pmpm']
-              min_value: "{{ dbt.date(1900, 1, 1) }}"
-              max_value: "{{ dbt.date(2050, 1, 2) }}"
+              min_value: "cast('1900-01-01' as date)"
+              max_value: "cast('2050-01-02' as date)"
               strictly: false
               column_name: "TRY(CAST(claim_line_start_date AS DATE))"
               config:
@@ -367,8 +367,8 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
 # description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_tuva_chronic_conditions']
-              min_value: "{{ dbt.date(1900, 1, 1) }}"
-              max_value: "{{ dbt.date(2050, 1, 2) }}"
+              min_value: "cast('1900-01-01' as date)"
+              max_value: "cast('2050-01-02' as date)"
               strictly: false
               column_name: "TRY(CAST(admission_date AS DATE))"
               config:
@@ -406,8 +406,8 @@ models:
           - dbt_expectations.expect_column_values_to_be_between:
 # description: This is a test on all dates to see if they are within a reasonable range.
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_tuva_chronic_conditions']
-              min_value: "{{ dbt.date(1900, 1, 1) }}"
-              max_value: "{{ dbt.date(2050, 1, 2) }}"
+              min_value: "cast('1900-01-01' as date)"
+              max_value: "cast('2050-01-02' as date)"
               strictly: false
               column_name: "TRY(CAST(discharge_date AS DATE))"
               config:
