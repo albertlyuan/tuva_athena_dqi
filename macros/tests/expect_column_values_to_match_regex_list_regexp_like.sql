@@ -1,8 +1,7 @@
 {% test expect_column_values_to_match_regex_list_regexp_like(model, column_name, regex_list) %}
 
-{% set column_name = kwargs.get('column') %}
-{% set regex_list = kwargs.get('regex_list') %}
 {% set row_condition = kwargs.get('row_condition', 'true') %}
+
 with validation_errors as (
     select *
     from {{ model }}
