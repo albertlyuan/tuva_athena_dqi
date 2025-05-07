@@ -1,6 +1,4 @@
-{% test expect_column_values_to_match_regex_list_regexp_like(model, column_name, regex_list) %}
-
-{% set row_condition = kwargs.get('row_condition', 'true') %}
+{% test expect_column_values_to_match_regex_list_regexp_like(model, column_name, regex_list, row_condition=True) %}
 
 with validation_errors as (
     select *
