@@ -37,8 +37,8 @@ select
     , dt.generated_at
     , dt.metadata_hash
     , dt.quality_dimension
-    , etr.detected_at
-    , etr.created_at
+    , cast(etr.detected_at as timestamp(3)) as detected_at
+    , cast(etr.created_at as timestamp(3)) as created_at
     , etr.column_name
     , etr.test_sub_type
     , etr.test_results_description
