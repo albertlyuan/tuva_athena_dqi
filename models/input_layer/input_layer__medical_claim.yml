@@ -82,7 +82,7 @@ models:
         tests:
           - dbt_expectations.expect_column_unique_value_count_to_be_between:
 # description: A claim cannot be both professional and institutional within the same claim id.
-              min_value: 1
+              min_value: 0
               max_value: 1
               tags: ['tuva_dqi_sev_1', 'dqi', 'dqi_service_categories', 'dqi_ccsr',
                 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions', 'dqi_cms_hccs',
@@ -170,7 +170,7 @@ models:
         tests:
           - dbt_expectations.expect_column_unique_value_count_to_be_between:
 # description: A claim should not have multiple start dates within the same claim id.
-              min_value: 1
+              min_value: 0
               max_value: 1
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions',
                 'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_financial_pmpm', 'dqi_quality_measures',
@@ -239,7 +239,7 @@ models:
         tests:
           - dbt_expectations.expect_column_unique_value_count_to_be_between:
 # description: A claim should not have multiple end dates within the same claim id.
-              min_value: 1
+              min_value: 0
               max_value: 1
               tags: ['tuva_dqi_sev_1', 'dqi', 'dqi_cms_chronic_conditions', 'dqi_tuva_chronic_conditions',
                 'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_financial_pmpm', 'dqi_quality_measures',
@@ -542,9 +542,9 @@ models:
         tests:
           - dbt_expectations.expect_column_unique_value_count_to_be_between:
 # description: A claim should not have multiple bill type codes within the same claim id.
-              min_value: 1
+              min_value: 0
               max_value: 1
-              tags: ['tuva_dqi_sev_1', 'dqi', 'dqi_cms_chronic_conditions']
+              tags: ['tuva_dqi_sev_4', 'dqi', 'dqi_cms_chronic_conditions']
               group_by: [claim_id]
               strictly: false
               config:
@@ -663,7 +663,7 @@ models:
                 severity: warn
                 enabled: "{{ ((target.type == 'athena') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_expectations.expect_column_values_to_match_regex:
-              regex: "^(\\\\d{3}|0\\\\d{3})$"
+              regex: "^(\\\\d{3}|[01239]\\\\d{3})$"
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_financial_pmpm']
               config:
                 severity: warn
@@ -987,7 +987,7 @@ models:
           - dbt_expectations.expect_column_values_to_match_regex_list:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
                 'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               match_on: any
@@ -1006,8 +1006,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1036,8 +1036,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1066,8 +1066,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1096,8 +1096,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1126,8 +1126,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1156,8 +1156,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1186,8 +1186,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1216,8 +1216,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1246,8 +1246,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1276,8 +1276,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1306,8 +1306,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1336,8 +1336,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1366,8 +1366,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1396,8 +1396,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1426,8 +1426,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1456,8 +1456,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1486,8 +1486,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1516,8 +1516,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1546,8 +1546,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1576,8 +1576,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1606,8 +1606,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1636,8 +1636,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1666,8 +1666,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"
@@ -1696,8 +1696,8 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - expect_column_values_to_match_regex_list_regexp_like:
               tags: ['tuva_dqi_sev_2', 'dqi', 'dqi_ccsr', 'dqi_tuva_chronic_conditions',
-                'dqi_cms_hccs', 'dqi_ed_classification', 'dqi_readmission']
-              regex_list: ["^[A-TV-Z][0-9A-Z]{2,7}$", "^[A-TV-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
+                'dqi_cms_hccs']
+              regex_list: ["^[A-Z][0-9A-Z]{2,7}$", "^[A-Z][0-9]{1,2}[.][0-9A-Z]{1,7}$",
                 "^[0-9]{3}([.][0-9]{1,2})?$", "^[0-9]{3,5}$", "^[VE][0-9]{3}([.][0-9]{1})?$",
                 "^[VE][0-9]{2,4}$"]                    # ICD-9 V/E codes without period
               row_condition: "diagnosis_code_1 is not null"

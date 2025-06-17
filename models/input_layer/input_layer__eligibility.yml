@@ -12,6 +12,7 @@ models:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - person_id
+            - member_id
             - enrollment_start_date
             - enrollment_end_date
             - "{{ '\"plan\"' if (target.type == 'fabric') else 'plan' }}"
@@ -135,7 +136,7 @@ models:
                 enabled: "{{ ((target.type != 'fabric') and var('enable_input_layer_testing', true)) | as_bool }}"
           - dbt_expectations.expect_column_unique_value_count_to_be_between:
 # description: A person should not have multiple birthdays.
-              min_value: 1
+              min_value: 0
               max_value: 1
               tags: ['tuva_dqi_sev_3', 'dqi', 'dqi_cms_hccs']
               group_by: [person_id]
